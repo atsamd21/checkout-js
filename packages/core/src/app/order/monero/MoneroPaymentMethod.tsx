@@ -1,60 +1,60 @@
 import React, { useEffect, useState } from 'react'
 import './MoneroPaymentMethod.scss';
 import { LoadingSpinner } from '@bigcommerce/checkout/ui';
-import { createCheckoutService } from '@bigcommerce/checkout-sdk';
+import { Order } from '@bigcommerce/checkout-sdk';
 import QRCode from 'react-qr-code';
 
+enum PaymentState {
+    unpaid,
+    pending,
+    paid,
+    withdrawn,
+    refunded,
+    expired,
+    deleted
+}
+
 interface CreatePaymentRequest {
-    checkoutId: string;
-    amount: number;
-    currency: string;
-    email: string;
+    orderId: number;
 }
 
 interface CreatePaymentResponse {
-    paymentId: string;
+    orderId: number;
     xmrAmount: number;
     address: string;
-    walletURI: string;
-    qrLink: string;
+    paymentState: PaymentState;
 }
 
-export function MoneroPaymentMethod(props: any) {
+interface MoneroPaymentMethodProps {
+    order: Order;
+}
+
+export function MoneroPaymentMethod({ order }: MoneroPaymentMethodProps) {
     const [loading, setLoading] = useState(false);
     const [paymentResponse, setPaymentResponse] = useState<CreatePaymentResponse | null>(null);
     const [paymentLink, setPaymentLink] = useState("");
-
-    console.log(props)
+    const [error, setError] = useState("");
 
     useEffect(() => {
-        // Try to fetch existing payment by checkoutId
-    }, [])
+        (async () => {
+            await getPaymentDetails();
+        })();
+    }, []);
 
-    const createPaymentAddress = async () => {
+    useEffect(() => {
+        const interval = setInterval(getPaymentDetails, 120000);
+        return () => { clearInterval(interval); }
+    }, [paymentResponse]);
+
+    const getPaymentDetails = async () => {
         setLoading(true);
 
         try {
-            const service = createCheckoutService();
-            // const state = await service.loadCheckout(checkoutId);
-
-            const checkoutSelectors = await service.loadCheckout(service.getState().data.getCheckout()?.id)
-
-            const checkout = checkoutSelectors.data.getCheckout();
-
-            if (!checkout) return;
-            
-            console.log(checkout?.grandTotal)
-            console.log(checkout?.id)
-            console.log(checkout?.cart.currency.code)
-            console.log(checkout?.customer.email)
-
             const createPaymentRequest: CreatePaymentRequest = {
-                amount: checkout.grandTotal,
-                checkoutId: checkout.id,
-                email: checkout.customer.email,
-                currency: checkout.cart.currency.code
+                orderId: order.orderId,
             }
 
+            // TODO Configable
             const response = await fetch("http://localhost:5025/api" + "/payments", {
                 method: "POST",
                 body: JSON.stringify(createPaymentRequest),
@@ -65,7 +65,7 @@ export function MoneroPaymentMethod(props: any) {
             });
     
             if (!response.ok) {
-                // setError(await response.json());
+                setError(await response.json());
                 return;
             }
 
@@ -85,8 +85,8 @@ export function MoneroPaymentMethod(props: any) {
 
     return (
         <div className='main'>
-            <button type='button' onClick={createPaymentAddress} className='button'>Create a one-time payment address</button>
-            <LoadingSpinner isLoading={loading}></LoadingSpinner>
+            <p className='monero-text'>Pay with Monero</p>
+            <LoadingSpinner isLoading={loading}/>
             {
                 paymentResponse && 
                 <div>
@@ -94,9 +94,18 @@ export function MoneroPaymentMethod(props: any) {
                     <textarea readOnly rows={2} name='address' id='address' className='form-input optimizedCheckout-form-input address' value={paymentResponse.address}/>
                     <label htmlFor='amount'>Amount</label>
                     <input readOnly name='amount' id='amount' className='form-input optimizedCheckout-form-input amount' value={paymentResponse.xmrAmount}/>
-                    
-                    <QRCode className="QR" value={paymentLink}></QRCode>
+                    <label htmlFor='state'>Status</label>
+                    <input readOnly name='state' id='state' className='form-input optimizedCheckout-form-input state' value={PaymentState[paymentResponse.paymentState]}/>
+                
+                    <QRCode className="QR" value={paymentLink}/>
+                    <a className="openwallet" href={paymentLink}>Open Monero wallet</a>
                 </div>
+            }
+            {
+                error !== "" ? 
+                <></> 
+                : 
+                <></>
             }
         </div>
     );

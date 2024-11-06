@@ -1,10 +1,19 @@
 .main {
 
+    .monero-text{
+        font-weight: 500;
+        font-size: 24px;
+    }
+
     .address{
         margin-bottom: 10px;
         white-space: initial;
         line-break: anywhere;
         resize: none;
+    }
+
+    .amount {
+        margin-bottom: 10px;
     }
 
     .QR {
@@ -15,5 +24,16 @@
         margin: 0 auto;
         margin-bottom: 20px;
         margin-top: 30px;
+    }
+
+    .state{
+        text-transform: capitalize;
+    }
+
+    .openwallet{
+        margin-top: 20px;
+        text-decoration: underline;
+        text-align: center;
+        display: block;
     }
 }

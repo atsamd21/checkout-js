@@ -42,6 +42,7 @@ import OrderConfirmationSection from './OrderConfirmationSection';
 import OrderStatus from './OrderStatus';
 import PrintLink from './PrintLink';
 import ThankYouHeader from './ThankYouHeader';
+import { MoneroPaymentMethod } from './monero/MoneroPaymentMethod';
 
 const OrderSummary = lazy(() =>
     retry(
@@ -132,6 +133,12 @@ class OrderConfirmation extends Component<
             links: { siteLink },
         } = config;
 
+        let isMonero = false;
+
+        if (order?.payments?.at(0)?.providerId === "instore") {
+            isMonero = true;
+        }
+
         return (
             <div
                 className={classNames('layout optimizedCheckout-contentPrimary', {
@@ -150,14 +157,18 @@ class OrderConfirmation extends Component<
                         />
 
                         {paymentInstructions && (
-                            <OrderConfirmationSection>
-                                <div
-                                    dangerouslySetInnerHTML={{
-                                        __html: DOMPurify.sanitize(paymentInstructions),
-                                    }}
-                                    data-test="payment-instructions"
-                                />
-                            </OrderConfirmationSection>
+
+                            isMonero ?
+                                <MoneroPaymentMethod order={order} />
+                                :
+                                <OrderConfirmationSection>
+                                    <div
+                                        dangerouslySetInnerHTML={{
+                                            __html: DOMPurify.sanitize(paymentInstructions),
+                                        }}
+                                        data-test="payment-instructions"
+                                    />
+                                </OrderConfirmationSection>
                         )}
 
                         {this.renderGuestSignUp({

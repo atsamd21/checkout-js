@@ -34,6 +34,7 @@ export const SUPPORTED_METHODS: string[] = [
     'googlepaystripe',
     'googlepaystripeupe',
     'googlepayworldpayaccess',
+    'monero'
 ];
 
 export interface CheckoutButtonListProps {

@@ -27,7 +27,6 @@ import PaypalExpressPaymentMethod from './PaypalExpressPaymentMethod';
 import PaypalPaymentsProPaymentMethod from './PaypalPaymentsProPaymentMethod';
 import PPSDKPaymentMethod from './PPSDKPaymentMethod';
 import WorldpayCreditCardPaymentMethod from './WorldpayCreditCardPaymentMethod';
-import { MoneroPaymentMethod } from './MoneroPaymentMethod';
 
 export interface PaymentMethodProps {
     method: PaymentMethod;
@@ -60,9 +59,9 @@ const PaymentMethodComponent: FunctionComponent<
 > = (props) => {
     const { method } = props;
 
-    if (method.id === 'monero') {
-        return <MoneroPaymentMethod {...props} />
-    }
+    // if (method.id === 'monero') {
+    //     return <MoneroPaymentMethod />
+    // }
 
     if (method.type === PaymentMethodProviderType.PPSDK) {
         return <PPSDKPaymentMethod {...props} />;

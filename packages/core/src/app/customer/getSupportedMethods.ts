@@ -26,6 +26,7 @@ export const SUPPORTED_METHODS: string[] = [
     'googlepayworldpayaccess',
     'googlepaypaypalcommerce',
     'googlepaytdonlinemart',
+    'monero'
 ];
 
 export const getSupportedMethodIds = (methodIds: string[]): string[] => {

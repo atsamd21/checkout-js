@@ -83,4 +83,5 @@ Copyright (C) 2019-Present BigCommerce Inc. All rights reserved.
 
 ## Monero
 
-![alt text](https://i.ibb.co/6nJ2GFj/Screenshot.png)
+![alt text](https://i.ibb.co/6XDCKH1/2-1.png)
+![alt text](https://i.ibb.co/Y7K2srY/1-1.png)

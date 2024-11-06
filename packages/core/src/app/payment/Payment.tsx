@@ -608,35 +608,40 @@ export function mapToPaymentProps({
 
     const { isComplete = false } = getOrder() || {};
 
-    const monero = {
-        id: 'monero',
-        gateway: undefined,
-        logoUrl: "",
-        method: 'monero',
-        supportedCards: [],
-        initializationData: null,
-        initializationStrategy: { type: "not_applicable" },
-        config: {
-            cardCode: false,
-            displayName: 'Monero',
-            enablePaypal: undefined,
-            hasDefaultStoredInstrument: false,
-            helpText: '',
-            is3dsEnabled: undefined,
-            isHostedFormEnabled: false,
-            isVaultingCvvEnabled: false,
-            isVaultingEnabled: false,
-            isVisaCheckoutEnabled: undefined,
-            requireCustomerCode: false,
-            merchantId: undefined,
-            testMode: false,
-        },
-        type: "PAYMENT_TYPE_OFFLINE"
-    } as PaymentMethod
+    // const monero = {
+    //     id: 'monero',
+    //     gateway: null!,
+    //     logoUrl: "",
+    //     method: 'offline',
+    //     supportedCards: [],
+    //     initializationData: null,
+    //     initializationStrategy: { type: "not_applicable" },
+    //     clientToken: null!,
+    //     returnUrl: null!,
+    //     config: {
+    //         cardCode: null!,
+    //         displayName: 'Monero',
+    //         enablePaypal: null!,
+    //         hasDefaultStoredInstrument: false,
+    //         helpText: '',
+    //         is3dsEnabled: null!,
+    //         isHostedFormEnabled: false,
+    //         isVaultingCvvEnabled: false,
+    //         isVaultingEnabled: false,
+    //         isVisaCheckoutEnabled: null!,
+    //         requireCustomerCode: false,
+    //         merchantId: null!,
+    //         testMode: false,
+    //         showCardHolderName: null!,
+    //         logo: null!
+    //     },
+    //     nonce: null!,
+    //     type: "PAYMENT_TYPE_OFFLINE"
+    // } as PaymentMethod
 
-    let methods: PaymentMethod[] = [monero, ...(getPaymentMethods() || EMPTY_ARRAY)];
+    // let methods: PaymentMethod[] = [monero, ...(getPaymentMethods() || EMPTY_ARRAY)];
 
-    console.log(methods)
+    let methods: PaymentMethod[] = [...(getPaymentMethods() || EMPTY_ARRAY)];
 
     // TODO: In accordance with the checkout team, this functionality is temporary and will be implemented in the backend instead.
     if (paymentProviderCustomer?.stripeLinkAuthenticationState) {
