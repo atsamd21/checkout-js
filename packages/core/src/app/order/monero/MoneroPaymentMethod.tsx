@@ -14,6 +14,10 @@ enum PaymentState {
     deleted
 }
 
+interface MoneroApiUrlResponse {
+    url: string;
+}
+
 interface CreatePaymentRequest {
     orderId: number;
 }
@@ -48,14 +52,33 @@ export function MoneroPaymentMethod({ order }: MoneroPaymentMethodProps) {
 
     const getPaymentDetails = async () => {
         setLoading(true);
+        setError("");
+        setPaymentResponse(null);
 
         try {
+
+            let moneroApiUrlResponse: MoneroApiUrlResponse;
+
+            if (process.env.NODE_ENV === 'development'){
+                const apiUrlResponse = await fetch("http://localhost:3000/stencil/00000000-0000-0000-0000-000000000001/dist/content/moneroapiurl.json");
+                moneroApiUrlResponse = await apiUrlResponse.json() as MoneroApiUrlResponse;
+            }
+            else {
+                const apiUrlResponse = await fetch(window.location.origin + "/content/moneroapiurl.json", {
+                    method: "GET",
+                    mode: "no-cors",
+                    headers: {
+                        "Accept": "application/json",
+                    }
+                });
+                moneroApiUrlResponse = await apiUrlResponse.json() as MoneroApiUrlResponse;
+            }
+
             const createPaymentRequest: CreatePaymentRequest = {
                 orderId: order.orderId,
             }
 
-            // TODO Configable
-            const response = await fetch("http://localhost:5025/api" + "/payments", {
+            const response = await fetch(moneroApiUrlResponse.url + "/payments", {
                 method: "POST",
                 body: JSON.stringify(createPaymentRequest),
                 mode: "cors",
@@ -70,13 +93,12 @@ export function MoneroPaymentMethod({ order }: MoneroPaymentMethodProps) {
             }
 
             const createPaymentResponse: CreatePaymentResponse = await response.json();
-            console.log(createPaymentResponse)
 
             setPaymentResponse(createPaymentResponse);
             setPaymentLink(`monero:${createPaymentResponse.address}?tx_amount=${createPaymentResponse.xmrAmount ?? 0}`);
         }
         catch {
-
+            setError("There was an error getting payment details.");
         }
         finally {
             setLoading(false);
@@ -103,7 +125,10 @@ export function MoneroPaymentMethod({ order }: MoneroPaymentMethodProps) {
             }
             {
                 error !== "" ? 
-                <></> 
+                <div>
+                    <p>{error}</p>
+                    <button type='button' onClick={getPaymentDetails} className='button'>Try again</button>
+                </div> 
                 : 
                 <></>
             }
