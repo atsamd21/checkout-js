@@ -97,7 +97,6 @@ Copyright (C) 2019-Present BigCommerce Inc. All rights reserved.
 ![alt text](https://i.ibb.co/4JY3J52/13.png)
 
 4. Then go to settings and search for "checkout".
-![alt text](https://i.ibb.co/n6hQ4Qc/1.png)
 ![alt text](https://i.ibb.co/DGj89Bn/2.png)
 
 5. Check "Custom Checkout" and then enter the script URL. The version number after "auto-loader" can be found in the "checkout" folder. Remember to save.
@@ -117,4 +116,4 @@ Copyright (C) 2019-Present BigCommerce Inc. All rights reserved.
 ![alt text](https://i.ibb.co/JB4ZQgR/11.png)
 ![alt text](https://i.ibb.co/jZC06Jt/12.png)
 
-9. Finally we need to get the store id, the easiest way to find this is in the url https://store-[this is the store id].mybigcommerce.com/. Save this as well and go to the Monero.API repo and follow the instructions there.
+9. Finally we need to get the store id, the easiest way to find this is in the url https://store-[STORE_ID].mybigcommerce.com/. Save this as well and go to the Monero.API repo and follow the instructions there.
