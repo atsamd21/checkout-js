@@ -85,3 +85,36 @@ Copyright (C) 2019-Present BigCommerce Inc. All rights reserved.
 
 ![alt text](https://i.ibb.co/6XDCKH1/2-1.png)
 ![alt text](https://i.ibb.co/Y7K2srY/1-1.png)
+
+
+## Setup instructions
+
+1. Install cyberduck: https://cyberduck.io/download/, this is needed to upload the custom checkout.
+
+2. Download the checkout zip (and unzip it) from releases or build from source. If building from source follow the instructions above and rename the "dist" folder to "checkout".
+
+3. After creating a store (free trial available here: https://www.bigcommerce.com/start-your-trial/) and logging in, follow this guide to set up WebDAV: https://support.bigcommerce.com/s/article/File-Access-WebDAV?language=en_US and drag the "checkout" folder into the "content" folder.
+![alt text](https://i.ibb.co/4JY3J52/13.png)
+
+4. Then go to settings and search for "checkout".
+![alt text](https://i.ibb.co/n6hQ4Qc/1.png)
+![alt text](https://i.ibb.co/DGj89Bn/2.png)
+
+5. Check "Custom Checkout" and then enter the script URL. The version number after "auto-loader" can be found in the "checkout" folder. Remember to save.
+![alt text](https://i.ibb.co/kyppJHR/3.png)
+![alt text](https://i.ibb.co/4K2Lbkc/4.png)
+
+6. Go back to settings and search for "payments", then enable "Pay in Store".
+![alt text](https://i.ibb.co/mCghMQM/5.png)
+![alt text](https://i.ibb.co/0DPcpbz/6.png)
+
+7. Enter the display name "Monero" and save.
+![alt text](https://i.ibb.co/YphVGKJ/7.png)
+
+8. Go back to settings and search for "api" and go to Store-level API accounts. Then create API account - this is used to update order statuses. Change the name to Monero and enable "modify" for orders and save. You should get an access token, this will be used later when setting up the backend.
+![alt text](https://i.ibb.co/LthX8B9/9.png)
+![alt text](https://i.ibb.co/6JMX6ss/10.png)
+![alt text](https://i.ibb.co/JB4ZQgR/11.png)
+![alt text](https://i.ibb.co/jZC06Jt/12.png)
+
+9. Finally we need to get the store id, the easiest way to find this is in the url https://store-[this is the store id].mybigcommerce.com/. Save this as well and go to the Monero.API repo and follow the instructions there.
