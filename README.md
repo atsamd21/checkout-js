@@ -107,7 +107,7 @@ Copyright (C) 2019-Present BigCommerce Inc. All rights reserved.
 ![alt text](https://i.ibb.co/mCghMQM/5.png)
 ![alt text](https://i.ibb.co/0DPcpbz/6.png)
 
-7. Enter the display name "Monero" and save.
+7. Enter the display name "Monero", clear "Payment Information" and save.
 ![alt text](https://i.ibb.co/YphVGKJ/7.png)
 
 8. Go back to settings and search for "api" and go to Store-level API accounts. Then create API account - this is used to update order statuses. Change the name to Monero and enable "modify" for orders and save. You should get an access token, this will be used later when setting up the backend.
