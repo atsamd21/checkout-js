@@ -8,10 +8,8 @@ enum PaymentState {
     unpaid,
     pending,
     paid,
-    withdrawn,
-    refunded,
     expired,
-    deleted
+    archived
 }
 
 interface MoneroApiUrlResponse {
@@ -20,6 +18,7 @@ interface MoneroApiUrlResponse {
 
 interface CreatePaymentRequest {
     orderId: number;
+    email: string;
 }
 
 interface CreatePaymentResponse {
@@ -76,6 +75,7 @@ export function MoneroPaymentMethod({ order }: MoneroPaymentMethodProps) {
 
             const createPaymentRequest: CreatePaymentRequest = {
                 orderId: order.orderId,
+                email: order.billingAddress.email ?? ""
             }
 
             const response = await fetch(moneroApiUrlResponse.url + "/payments", {
