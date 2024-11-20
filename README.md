@@ -116,4 +116,11 @@ Copyright (C) 2019-Present BigCommerce Inc. All rights reserved.
 ![alt text](https://i.ibb.co/JB4ZQgR/11.png)
 ![alt text](https://i.ibb.co/jZC06Jt/12.png)
 
-9. Finally we need to get the store id, the easiest way to find this is in the url https://store-[STORE_ID].mybigcommerce.com/. Save this as well and go to the Monero.API repo and follow the instructions there.
+9. (optional) In order to send a link with the payment instructions in the order confirmation email. Get the custom email template from https://github.com/atsamd21/checkout-js-monero/blob/master/custom_emails/invoice_email.html. Open it in a text editor and find the line:
+```html
+<a class="payment-link" href="https://localhost:5101/OrderPayment?email={{customer.email}}&orderId={{order.id}}&store={{store.name}}">Click here to pay with Monero</a>
+```
+replace "localhost" with the domain name of where you will host the API
+then in the store dashboard on the left, go to Marketing->Order Email->Code and replace the code in there with invoice_email.html
+
+10. Finally we need to get the store id, the easiest way to find this is in the url https://store-[STORE_ID].mybigcommerce.com/. Save this as well and go to the Monero.API repo and follow the instructions there.
