@@ -123,4 +123,4 @@ Copyright (C) 2019-Present BigCommerce Inc. All rights reserved.
 replace "localhost" with the domain name of where you will host the API
 then in the store dashboard on the left, go to Marketing->Order Email->Code and replace the code in there with invoice_email.html
 
-10. Finally we need to get the store id, the easiest way to find this is in the url https://store-[STORE_ID].mybigcommerce.com/. Save this as well and go to the Monero.API repo and follow the instructions there.
+10. Finally we need to get the store id, the easiest way to find this is in the url https://store-[STORE_ID].mybigcommerce.com/. Save this as well and go to the Monero.API (https://github.com/atsamd21/Monero.Api) repo and follow the instructions there.
