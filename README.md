@@ -124,3 +124,6 @@ replace "localhost" with the domain name of where you will host the API
 then in the store dashboard on the left, go to Marketing->Order Email->Code and replace the code in there with invoice_email.html
 
 10. Finally we need to get the store id, the easiest way to find this is in the url https://store-[STORE_ID].mybigcommerce.com/. Save this as well and go to the Monero.API (https://github.com/atsamd21/Monero.Api) repo and follow the instructions there.
+
+11. In order to add payment instructions to the order details page you will need to install the custom theme: https://github.com/atsamd21/cornerstone-monero
+
